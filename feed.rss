@@ -11,10 +11,18 @@
     <description><![CDATA[LC - yt2podcast]]></description>
     <link>https://github.com/lucascaton/yt2podcast</link>
 
-		<lastBuildDate>Sat, 6 Jul 2019 10:06:59</lastBuildDate>
+		<lastBuildDate>Sat, 6 Jul 2019 10:11:02</lastBuildDate>
 
 		<atom:link href="http://lucascaton.github.io/yt2podcast/feed.rss" rel="self" type="application/rss+xml"/>
 		<copyright><![CDATA[LC]]></copyright>
 		<language><![CDATA[pt-br]]></language>
+<item>
+  <title><![CDATA[3 DICAS PARA APRENDER PROGRAMAÇÃO EFICIENTEMENTE]]></title>
+  <description><![CDATA[<p>Original video: https://www.youtube.com/watch?v=zgLdbnmqYE8</p>]]></description>
+  <link>https://www.youtube.com/watch?v=zgLdbnmqYE8</link>
+  <guid isPermaLink="false">yt2podcast-2019-07-06-10-11</guid>
+  <pubDate>Sat, 6 Jul 2019 10:11:02</pubDate>
+  <enclosure url="http://lucascaton.github.io/yt2podcast/episodes/2019-07-06-10-11 - 3 DICAS PARA APRENDER PROGRAMAÇÃO EFICIENTEMENTE.m4a" type="audio/mpeg"/>
+</item>
 </channel>
 </rss>
