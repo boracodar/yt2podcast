@@ -60,12 +60,14 @@ system 'git --no-pager diff'
 file_size = `ls -lh "episodes/#{file_name}"`.split[4]
 
 puts <<~CONFIRMATION
+
   #{'-' * `tput cols`.to_i}
   Original audio had #{original_file_size}
   and compressed one has #{file_size}
   #{'-' * `tput cols`.to_i}
 
   Continue? [y/n]
+
 CONFIRMATION
 
 exit(1) if STDIN.getch != 'y'
