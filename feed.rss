@@ -7,8 +7,8 @@
   xmlns:anchor="https://anchor.fm/xmlns">
 
 	<channel>
-		<title><![CDATA[LC - yt2podcast]]></title>
-    <description><![CDATA[LC - yt2podcast]]></description>
+		<title><![CDATA[yt2podcast]]></title>
+    <description><![CDATA[yt2podcast]]></description>
     <link>https://github.com/lucascaton/yt2podcast</link>
 
 		<lastBuildDate>Sat, 6 Jul 2019 10:11:02</lastBuildDate>
