@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+
+require 'io/console'
+
+if ARGV.empty?
+  puts "Usage: ./new <youtube-url>"
+  exit(1)
+end
+
+YOUTUBE_REGEX = /^(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?([\w-]{10,})/
+
+url = ARGV.first
+
+time = Time.now.strftime('%Y-%m-%d-%H-%M')
+pub_date = Time.now.strftime('%a, %-d %b %Y %H:%M:%S')
+
+puts "Downloading audio..."
+`youtube-dl -f 'bestaudio[ext=m4a]' -o \"episodes/#{time} - %(title)s.%(ext)s\" #{url}`
+
+file_name = `ls episodes`.split("\n").find { |ep| ep =~ /#{time}/ }
+original_file_size = `ls -lh "episodes/#{file_name}"`.split[4]
+
+puts 'Reducing file size...'
+
+file_name_without_extention = File.basename(file_name, '.*')
+extention = File.extname(file_name)
+original_file_name = "#{file_name_without_extention}-original#{extention}"
+
+`mv "episodes/#{file_name}" "episodes/#{original_file_name}"`
+`ffmpeg -i "episodes/#{original_file_name}" -ab 64k "episodes/#{file_name}" 2> /dev/null`
+`rm "episodes/#{original_file_name}"`
+
+# Update Feed
+
+title = file_name[/\A#{time} - (.+)\..{3}\Z/, 1]
+
+new_episode = <<~RSS
+<item>
+  <title><![CDATA[#{title}]]></title>
+  <description><![CDATA[<p>Original video: #{url}</p>]]></description>
+  <link>#{url}</link>
+  <guid isPermaLink="false">yt2podcast-#{time}</guid>
+  <pubDate>#{pub_date}</pubDate>
+  <enclosure url="http://lucascaton.github.io/yt2podcast/episodes/#{file_name}" type="audio/mpeg"/>
+</item>
+RSS
+
+current_feed_file = File.read('feed.rss')
+
+new_feed = current_feed_file
+  .gsub(%r{</channel>}, "#{new_episode}</channel>")
+  .gsub(%r{<lastBuildDate>.+</lastBuildDate>}, "<lastBuildDate>#{pub_date}</lastBuildDate>")
+
+File.open('feed.rss', 'w') { |file| file.write(new_feed) }
+
+system 'git --no-pager diff'
+
+# Confirmation
+
+file_size = `ls -lh "episodes/#{file_name}"`.split[4]
+
+puts <<~CONFIRMATION
+  #{'-' * `tput cols`.to_i}
+  Original audio had #{original_file_size}
+  and compressed one has #{file_size}
+  #{'-' * `tput cols`.to_i}
+
+  Continue? [y/n]
+CONFIRMATION
+
+exit(1) if STDIN.getch != 'y'
+
+puts "\nCommiting & pushing to GitHub..."
+
+`git add feed.rss "episodes/#{file_name}"`
+`git commit -m "🤖 Update feed"`
+`git push`

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:anchor="https://anchor.fm/xmlns">
+
+	<channel>
+		<title><![CDATA[LC - yt2podcast]]></title>
+    <description><![CDATA[LC - yt2podcast]]></description>
+    <link>https://github.com/lucascaton/yt2podcast</link>
+
+		<lastBuildDate>Sat, 6 Jul 2019 10:06:59</lastBuildDate>
+
+		<atom:link href="http://lucascaton.github.io/yt2podcast/feed.rss" rel="self" type="application/rss+xml"/>
+		<copyright><![CDATA[LC]]></copyright>
+		<language><![CDATA[pt-br]]></language>
+</channel>
+</rss>
